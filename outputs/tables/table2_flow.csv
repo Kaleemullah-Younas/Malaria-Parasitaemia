@@ -1,0 +1,144 @@
+country,survey_year,recode,n,rdt_pos,step
+Burkina Faso,2010,62,15044,4324,0_kr_rows
+Burkina Faso,2014,71,6841,3539,0_kr_rows
+Burkina Faso,2017-2018,7A,6061,1049,0_kr_rows
+Burkina Faso,2021,81,12343,1372,0_kr_rows
+Gambia,2013,61,8088,46,0_kr_rows
+Gambia,2019-2020,81,8362,11,0_kr_rows
+Mali,2012-2013,6A,10326,1810,0_kr_rows
+Mali,2015,72,7749,2005,0_kr_rows
+Mali,2018,7A,9940,608,0_kr_rows
+Mali,2021,83,9464,1389,0_kr_rows
+Mauritania,2019-2021,71,11628,72,0_kr_rows
+Niger,2021,82,5120,942,0_kr_rows
+Nigeria,2010,61,5978,2034,0_kr_rows
+Nigeria,2015,71,6524,2287,0_kr_rows
+Nigeria,2018,7B,33924,3795,0_kr_rows
+Nigeria,2021,81,10988,3395,0_kr_rows
+Senegal,2008-2009,5A,15595,20,0_kr_rows
+Senegal,2010,61,12326,110,0_kr_rows
+Senegal,2012,6D,6862,228,0_kr_rows
+Senegal,2014,71,6842,95,0_kr_rows
+Senegal,2015,7A,6935,57,0_kr_rows
+Senegal,2016,7I,6725,96,0_kr_rows
+Senegal,2017,7Z,12185,148,0_kr_rows
+Senegal,2018,81,6719,0,0_kr_rows
+Senegal,2019,8B,6125,0,0_kr_rows
+Senegal,2020-2021,8I,6395,124,0_kr_rows
+Burkina Faso,2010,62,6068,4324,1_age_6_59
+Burkina Faso,2014,71,5628,3539,1_age_6_59
+Burkina Faso,2017-2018,7A,5362,1049,1_age_6_59
+Burkina Faso,2021,81,11045,1372,1_age_6_59
+Gambia,2013,61,3171,46,1_age_6_59
+Gambia,2019-2020,81,7309,11,1_age_6_59
+Mali,2012-2013,6A,4361,1804,1_age_6_59
+Mali,2015,72,6532,2005,1_age_6_59
+Mali,2018,7A,8861,608,1_age_6_59
+Mali,2021,83,8407,1389,1_age_6_59
+Mauritania,2019-2021,71,10358,72,1_age_6_59
+Niger,2021,82,4634,942,1_age_6_59
+Nigeria,2015,71,5552,2287,1_age_6_59
+Nigeria,2018,7B,30515,3795,1_age_6_59
+Nigeria,2021,81,9981,3395,1_age_6_59
+Senegal,2008-2009,5A,4076,19,1_age_6_59
+Senegal,2010,61,3784,110,1_age_6_59
+Senegal,2012,6D,5518,228,1_age_6_59
+Senegal,2014,71,5574,95,1_age_6_59
+Senegal,2015,7A,5668,57,1_age_6_59
+Senegal,2016,7I,5529,96,1_age_6_59
+Senegal,2017,7Z,10979,148,1_age_6_59
+Senegal,2018,81,6074,0,1_age_6_59
+Senegal,2019,8B,5470,0,1_age_6_59
+Senegal,2020-2021,8I,5640,124,1_age_6_59
+Burkina Faso,2010,62,5727,4324,2_valid_rdt
+Burkina Faso,2014,71,5502,3539,2_valid_rdt
+Burkina Faso,2017-2018,7A,5179,1049,2_valid_rdt
+Burkina Faso,2021,81,5120,1372,2_valid_rdt
+Gambia,2013,61,2703,46,2_valid_rdt
+Gambia,2019-2020,81,3255,11,2_valid_rdt
+Mali,2012-2013,6A,4148,1804,2_valid_rdt
+Mali,2015,72,6493,2005,2_valid_rdt
+Mali,2018,7A,3871,608,2_valid_rdt
+Mali,2021,83,7857,1389,2_valid_rdt
+Mauritania,2019-2021,71,8665,72,2_valid_rdt
+Niger,2021,82,4143,942,2_valid_rdt
+Nigeria,2015,71,5295,2287,2_valid_rdt
+Nigeria,2018,7B,10148,3795,2_valid_rdt
+Nigeria,2021,81,9127,3395,2_valid_rdt
+Senegal,2008-2009,5A,159,19,2_valid_rdt
+Senegal,2010,61,3346,110,2_valid_rdt
+Senegal,2012,6D,5350,228,2_valid_rdt
+Senegal,2014,71,5417,95,2_valid_rdt
+Senegal,2015,7A,5457,57,2_valid_rdt
+Senegal,2016,7I,5324,96,2_valid_rdt
+Senegal,2017,7Z,9597,148,2_valid_rdt
+Senegal,2020-2021,8I,2591,124,2_valid_rdt
+Burkina Faso,2010,62,5727,4324,3_fever_item_nonmissing
+Burkina Faso,2014,71,5495,3537,3_fever_item_nonmissing
+Burkina Faso,2017-2018,7A,5150,1041,3_fever_item_nonmissing
+Burkina Faso,2021,81,5120,1372,3_fever_item_nonmissing
+Gambia,2013,61,2703,46,3_fever_item_nonmissing
+Gambia,2019-2020,81,3255,11,3_fever_item_nonmissing
+Mali,2012-2013,6A,4148,1804,3_fever_item_nonmissing
+Mali,2015,72,6493,2005,3_fever_item_nonmissing
+Mali,2018,7A,3871,608,3_fever_item_nonmissing
+Mali,2021,83,7787,1374,3_fever_item_nonmissing
+Mauritania,2019-2021,71,8665,72,3_fever_item_nonmissing
+Niger,2021,82,4143,942,3_fever_item_nonmissing
+Nigeria,2015,71,5295,2287,3_fever_item_nonmissing
+Nigeria,2018,7B,10148,3795,3_fever_item_nonmissing
+Nigeria,2021,81,9127,3395,3_fever_item_nonmissing
+Senegal,2008-2009,5A,159,19,3_fever_item_nonmissing
+Senegal,2010,61,3346,110,3_fever_item_nonmissing
+Senegal,2012,6D,5350,228,3_fever_item_nonmissing
+Senegal,2014,71,5417,95,3_fever_item_nonmissing
+Senegal,2015,7A,5457,57,3_fever_item_nonmissing
+Senegal,2016,7I,5324,96,3_fever_item_nonmissing
+Senegal,2017,7Z,9597,148,3_fever_item_nonmissing
+Senegal,2020-2021,8I,2591,124,3_fever_item_nonmissing
+Burkina Faso,2010,62,4372,3287,4_afebrile_h22eq0
+Burkina Faso,2014,71,3100,1769,4_afebrile_h22eq0
+Burkina Faso,2017-2018,7A,4026,733,4_afebrile_h22eq0
+Burkina Faso,2021,81,3826,831,4_afebrile_h22eq0
+Gambia,2013,61,2324,38,4_afebrile_h22eq0
+Gambia,2019-2020,81,2681,8,4_afebrile_h22eq0
+Mali,2012-2013,6A,3702,1555,4_afebrile_h22eq0
+Mali,2015,72,4509,1170,4_afebrile_h22eq0
+Mali,2018,7A,3218,443,4_afebrile_h22eq0
+Mali,2021,83,5624,756,4_afebrile_h22eq0
+Mauritania,2019-2021,71,7097,54,4_afebrile_h22eq0
+Niger,2021,82,2737,410,4_afebrile_h22eq0
+Nigeria,2015,71,2890,976,4_afebrile_h22eq0
+Nigeria,2018,7B,7380,2405,4_afebrile_h22eq0
+Nigeria,2021,81,5736,1820,4_afebrile_h22eq0
+Senegal,2008-2009,5A,113,14,4_afebrile_h22eq0
+Senegal,2010,61,2599,83,4_afebrile_h22eq0
+Senegal,2012,6D,4341,142,4_afebrile_h22eq0
+Senegal,2014,71,4739,70,4_afebrile_h22eq0
+Senegal,2015,7A,4504,36,4_afebrile_h22eq0
+Senegal,2016,7I,4476,61,4_afebrile_h22eq0
+Senegal,2017,7Z,7490,89,4_afebrile_h22eq0
+Senegal,2020-2021,8I,1850,79,4_afebrile_h22eq0
+Burkina Faso,2010,62,4367,3284,5_afebrile_no_recent_antimalarial
+Burkina Faso,2014,71,3100,1769,5_afebrile_no_recent_antimalarial
+Burkina Faso,2017-2018,7A,4026,733,5_afebrile_no_recent_antimalarial
+Burkina Faso,2021,81,3816,827,5_afebrile_no_recent_antimalarial
+Gambia,2013,61,2320,38,5_afebrile_no_recent_antimalarial
+Gambia,2019-2020,81,2681,8,5_afebrile_no_recent_antimalarial
+Mali,2012-2013,6A,3690,1553,5_afebrile_no_recent_antimalarial
+Mali,2015,72,4509,1170,5_afebrile_no_recent_antimalarial
+Mali,2018,7A,3210,443,5_afebrile_no_recent_antimalarial
+Mali,2021,83,5624,756,5_afebrile_no_recent_antimalarial
+Mauritania,2019-2021,71,7063,54,5_afebrile_no_recent_antimalarial
+Niger,2021,82,2737,410,5_afebrile_no_recent_antimalarial
+Nigeria,2015,71,2890,976,5_afebrile_no_recent_antimalarial
+Nigeria,2018,7B,7353,2399,5_afebrile_no_recent_antimalarial
+Nigeria,2021,81,5736,1820,5_afebrile_no_recent_antimalarial
+Senegal,2008-2009,5A,113,14,5_afebrile_no_recent_antimalarial
+Senegal,2010,61,2588,82,5_afebrile_no_recent_antimalarial
+Senegal,2012,6D,4332,142,5_afebrile_no_recent_antimalarial
+Senegal,2014,71,4738,70,5_afebrile_no_recent_antimalarial
+Senegal,2015,7A,4502,36,5_afebrile_no_recent_antimalarial
+Senegal,2016,7I,4476,61,5_afebrile_no_recent_antimalarial
+Senegal,2017,7Z,7475,89,5_afebrile_no_recent_antimalarial
+Senegal,2020-2021,8I,1850,79,5_afebrile_no_recent_antimalarial
