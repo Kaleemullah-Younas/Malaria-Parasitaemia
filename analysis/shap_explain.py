@@ -10,6 +10,36 @@ from sklearn.pipeline import Pipeline
 from analysis.config import DATA_DIR, FIGURES, LGBM_GRID, SEED, TABLES, ensure_dirs
 from analysis.models_loco import CAT_COLS, NUM_COLS, _fit_lgb, _xy
 
+SHAP_LABELS = {
+    "cat__lat_band_sahel": "Latitude band (Sahel)",
+    "num__month_sin": "Survey month (sine)",
+    "num__month_cos": "Survey month (cosine)",
+    "num__urban": "Urban residence",
+    "num__hhsize": "Household size",
+    "num__age_months": "Child age (months)",
+    "num__toilet_improved": "Improved sanitation",
+    "num__educ": "Maternal education (years)",
+    "num__wealth": "Wealth quintile",
+    "cat__floor_grp_finished": "Floor: finished",
+    "cat__floor_grp_natural": "Floor: natural",
+    "cat__wall_grp_finished": "Wall: finished",
+    "cat__roof_grp_finished": "Roof: finished",
+    "cat__lat_band_guinean": "Latitude band (Guinean)",
+    "cat__wall_grp_natural": "Wall: natural",
+    "num__net_used": "Bed-net used last night",
+    "num__net_own": "Bed-net ownership",
+    "num__female": "Female child",
+    "num__water_improved": "Improved water",
+    "num__sahel_nigeria": "Nigeria Sahel band",
+}
+
+
+def _shap_label(name: str) -> str:
+    if name in SHAP_LABELS:
+        return SHAP_LABELS[name]
+    cleaned = name.replace("cat__", "").replace("num__", "").replace("_", " ")
+    return cleaned
+
 
 def run_shap(analytic: pd.DataFrame | None = None, sample_n: int = 4000) -> None:
     ensure_dirs()
@@ -40,19 +70,42 @@ def run_shap(analytic: pd.DataFrame | None = None, sample_n: int = 4000) -> None
     importance.to_csv(TABLES / "shap_importance.csv", index=False)
     import matplotlib.pyplot as plt
 
-    top = importance.head(15)
-    fig, ax = plt.subplots(figsize=(8, 6))
-    ax.barh(top["feature"][::-1], top["mean_abs_shap"][::-1], color="#2c7fb8")
+    labels = [_shap_label(f) for f in feature_names]
+    top = importance.head(15).copy()
+    top["label"] = top["feature"].map(_shap_label)
+
+    plt.rcParams.update(
+        {
+            "font.size": 9,
+            "axes.labelsize": 9,
+            "xtick.labelsize": 8,
+            "ytick.labelsize": 8,
+            "axes.linewidth": 1.2,
+            "axes.spines.top": False,
+            "axes.spines.right": False,
+        }
+    )
+    fig, ax = plt.subplots(figsize=(90 / 25.4 * 2 + 0.2, 110 / 25.4))
+    ax.barh(
+        top["label"][::-1],
+        top["mean_abs_shap"][::-1],
+        color="#08306B",
+        edgecolor="#111111",
+        linewidth=0.4,
+        height=0.72,
+    )
     ax.set_xlabel("Mean |SHAP|")
-    ax.set_title("LightGBM mean absolute SHAP (pooled training fit; model behavior)")
+    ax.text(0.0, 1.02, "A", transform=ax.transAxes, fontsize=11, fontweight="bold", va="bottom")
     fig.tight_layout()
-    fig.savefig(FIGURES / "figure5_shap_bar.png", dpi=300)
+    fig.savefig(FIGURES / "figure5_shap_bar.png", dpi=300, bbox_inches="tight", facecolor="white")
     plt.close(fig)
 
-    plt.figure(figsize=(8, 7))
-    shap.summary_plot(shap_values, Xt[idx], feature_names=feature_names, max_display=15, show=False)
+    plt.figure(figsize=(90 / 25.4 * 2 + 0.2, 110 / 25.4))
+    shap.summary_plot(shap_values, Xt[idx], feature_names=labels, max_display=15, show=False)
+    fig = plt.gcf()
+    fig.text(0.01, 0.98, "B", fontsize=11, fontweight="bold", va="top")
     plt.tight_layout()
-    plt.savefig(FIGURES / "figure5_shap_beeswarm.png", dpi=300, bbox_inches="tight")
+    plt.savefig(FIGURES / "figure5_shap_beeswarm.png", dpi=300, bbox_inches="tight", facecolor="white")
     plt.close()
     print(importance.head(15).to_string(index=False))
     print("SHAP describes how the fitted model uses features; it is not a causal statement about malaria biology.")
