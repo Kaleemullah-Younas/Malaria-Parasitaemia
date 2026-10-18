@@ -49,6 +49,22 @@ NUM_COLS = [
 CAT_COLS = ["floor_grp", "wall_grp", "roof_grp", "lat_band"]
 
 
+def equal_country_weights(df: pd.DataFrame) -> pd.DataFrame:
+    """Rescale native DHS weights so each country has the same total weight mass.
+
+    Evaluation metrics on a single held-out country are invariant to a constant
+    scale, so this is applied only to training folds (see ``run_loco``).
+    """
+    out = df.copy()
+    w = pd.to_numeric(out["weight"], errors="coerce").fillna(0).clip(lower=0.0)
+    tot = w.groupby(out["country"]).transform("sum")
+    n_c = max(int(out["country"].nunique()), 1)
+    grand = float(w.sum())
+    scale = np.where(tot > 0, (grand / n_c) / tot, 0.0)
+    out["weight"] = w.to_numpy(dtype=float) * scale
+    return out
+
+
 def _xy(df: pd.DataFrame, extra_num: list[str] | None = None) -> tuple[pd.DataFrame, np.ndarray, np.ndarray]:
     cols = [c for c in NUM_COLS + CAT_COLS if c in df.columns]
     if extra_num:
@@ -260,7 +276,7 @@ class FoldResult:
     intercept: float
 
 
-def inner_select(train: pd.DataFrame, extra_num: list[str] | None = None):
+def inner_select(train: pd.DataFrame, extra_num: list[str] | None = None, equal_country_weight: bool = False):
     countries = sorted(train["country"].unique())
     num_cols = [c for c in NUM_COLS if c in train.columns]
     if extra_num:
@@ -272,6 +288,8 @@ def inner_select(train: pd.DataFrame, extra_num: list[str] | None = None):
         scores = []
         for val_c in countries:
             tr = train[train["country"] != val_c]
+            if equal_country_weight:
+                tr = equal_country_weights(tr)
             va = train[train["country"] == val_c]
             if va["rdt"].nunique() < 2 or (va["rdt"] == 1).sum() < 10:
                 continue
@@ -291,8 +309,10 @@ def inner_select(train: pd.DataFrame, extra_num: list[str] | None = None):
     return best_enet, best_lgb, num_cols, cat_cols
 
 
-def _predict_fold(train, test, extra_num=None):
-    best_enet, best_lgb, num_cols, cat_cols = inner_select(train, extra_num)
+def _predict_fold(train, test, extra_num=None, equal_country_weight: bool = False):
+    best_enet, best_lgb, num_cols, cat_cols = inner_select(
+        train, extra_num, equal_country_weight=equal_country_weight
+    )
     Xtr, ytr, wtr = _xy(train, extra_num)
     Xte, yte, wte = _xy(test, extra_num)
     enet = _fit_enet(Xtr, ytr, wtr, num_cols, cat_cols, best_enet)
@@ -322,8 +342,44 @@ def _metrics_block(df, pcol, model, country, extra=None, n_boot: int = N_BOOTSTR
     return rec
 
 
-def run_loco(analytic: pd.DataFrame | None = None, extra_num: list[str] | None = None, tag: str = "primary", tune: bool = True) -> dict:
+def _params_from_primary(country: str) -> tuple[dict, dict]:
+    path = TABLES / "metrics_loco_primary.csv"
+    if not path.exists():
+        return {"l1_ratio": 0.5, "C": 1.0}, LGBM_GRID[1]
+    m = pd.read_csv(path)
+    en = m[(m["country"] == country) & (m["model"] == "elasticnet")]
+    lg = m[(m["country"] == country) & (m["model"] == "lightgbm")]
+    pe = json.loads(en.iloc[0]["params"]) if len(en) and pd.notna(en.iloc[0].get("params")) else {"l1_ratio": 0.5, "C": 1.0}
+    pl = json.loads(lg.iloc[0]["params"]) if len(lg) and pd.notna(lg.iloc[0].get("params")) else LGBM_GRID[1]
+    return pe, pl
+
+
+def run_loco(
+    analytic: pd.DataFrame | None = None,
+    extra_num: list[str] | None = None,
+    tag: str = "primary",
+    tune: bool = True,
+    equal_country_weight: bool = False,
+    overwrite: bool = False,
+    reuse_primary_params: bool = False,
+    n_boot: int | None = None,
+    compute_aux: bool = True,
+) -> dict:
     ensure_dirs()
+    dest = TABLES / f"metrics_loco_{tag}.csv"
+    if tag == "primary" and dest.exists() and not overwrite:
+        print(f"Primary LOCO metrics already exist at {dest}; skipping to protect Table 2. Pass overwrite=True to refit.")
+        preds_path = DATA_DIR / "predictions_primary.parquet"
+        return {
+            "preds": pd.read_parquet(preds_path) if preds_path.exists() else pd.DataFrame(),
+            "metrics": pd.read_csv(dest),
+            "calib": pd.read_csv(TABLES / "calibration_bins_primary.csv") if (TABLES / "calibration_bins_primary.csv").exists() else pd.DataFrame(),
+            "dca": pd.read_csv(TABLES / "dca_primary.csv") if (TABLES / "dca_primary.csv").exists() else pd.DataFrame(),
+            "sub": pd.read_csv(TABLES / "subgroup_metrics_primary.csv") if (TABLES / "subgroup_metrics_primary.csv").exists() else pd.DataFrame(),
+            "gbm": None,
+        }
+    if n_boot is None:
+        n_boot = N_BOOTSTRAP
     if analytic is None:
         analytic = pd.read_parquet(DATA_DIR / "analytic.parquet")
     train_all = analytic.loc[analytic["train_sample"]].copy()
@@ -339,13 +395,29 @@ def run_loco(analytic: pd.DataFrame | None = None, extra_num: list[str] | None =
     for held in countries:
         print(f"[{tag}] LOCO hold-out {held}")
         tr = train_all[train_all["country"] != held]
+        if equal_country_weight:
+            tr = equal_country_weights(tr)
         te_trainish = train_all[train_all["country"] == held]
         te_eval = eval_all[eval_all["country"] == held]
         if (te_trainish["rdt"] == 1).sum() < 10:
             print(f"  skip {held}: too few afebrile RDT+")
             continue
-        if tune:
-            p_enet, p_lgb, enet, gbm, pe, pl = _predict_fold(tr, te_trainish, extra_num)
+        if reuse_primary_params:
+            pe, pl = _params_from_primary(held)
+            num_cols = [c for c in NUM_COLS if c in tr.columns]
+            if extra_num:
+                num_cols = num_cols + [c for c in extra_num if c in tr.columns]
+            cat_cols = [c for c in CAT_COLS if c in tr.columns]
+            Xtr, ytr, wtr = _xy(tr, extra_num)
+            Xte, yte, wte = _xy(te_trainish, extra_num)
+            enet = _fit_enet(Xtr, ytr, wtr, num_cols, cat_cols, pe)
+            gbm = _fit_lgb(Xtr, ytr, wtr, num_cols, cat_cols, pl)
+            p_enet = enet.predict_proba(Xte)[:, 1]
+            p_lgb = gbm.predict_proba(Xte)[:, 1]
+        elif tune:
+            p_enet, p_lgb, enet, gbm, pe, pl = _predict_fold(
+                tr, te_trainish, extra_num, equal_country_weight=equal_country_weight
+            )
         else:
             num_cols = [c for c in NUM_COLS if c in tr.columns]
             if extra_num:
@@ -364,14 +436,17 @@ def run_loco(analytic: pd.DataFrame | None = None, extra_num: list[str] | None =
         te["p_enet"] = p_enet
         te["p_lgb"] = p_lgb
         ev = te_eval.copy()
-        afe = ev["fever"].eq(0)
-        if afe.any():
-            Xafe, _, _ = _xy(ev.loc[afe], extra_num)
-            ev.loc[afe, "p_enet"] = enet.predict_proba(Xafe)[:, 1]
-            ev.loc[afe, "p_lgb"] = gbm.predict_proba(Xafe)[:, 1]
+        if compute_aux:
+            afe = ev["fever"].eq(0)
+            if afe.any():
+                Xafe, _, _ = _xy(ev.loc[afe], extra_num)
+                ev.loc[afe, "p_enet"] = enet.predict_proba(Xafe)[:, 1]
+                ev.loc[afe, "p_lgb"] = gbm.predict_proba(Xafe)[:, 1]
         pred_frames.append(te)
         for model, pcol in [("elasticnet", "p_enet"), ("lightgbm", "p_lgb")]:
-            metric_rows.append(_metrics_block(te, pcol, model, held, extra={"params": json.dumps(pe if model == "elasticnet" else pl), "tag": tag}))
+            metric_rows.append(_metrics_block(te, pcol, model, held, extra={"params": json.dumps(pe if model == "elasticnet" else pl), "tag": tag}, n_boot=n_boot))
+            if not compute_aux:
+                continue
             bins = calibration_bins(te["rdt"], te[pcol], te["weight"])
             bins["country"] = held
             bins["model"] = model

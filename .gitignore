@@ -12,6 +12,10 @@ wheels/
 # Large intermediate data
 outputs/data/
 outputs/models/
+.cursor/
 DHS_clean
 ~WRL0003.tmp
 docs/
+anonymized/
+.ipynb_checkpoints/
+docs/_ms_extract.txt

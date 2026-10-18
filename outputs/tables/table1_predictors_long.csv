@@ -1,0 +1,120 @@
+country,predictor,estimate,missing_pct
+Burkina Faso,wealth,2.903460482150217,0.0
+Burkina Faso,urban,19.592350448613306,0.0
+Burkina Faso,educ,0.32051334154118516,0.0
+Burkina Faso,hhsize,7.95856308801238,0.0
+Burkina Faso,water_improved,64.92575863493936,0.07838526357044875
+Burkina Faso,toilet_improved,42.846962745321385,0.13064210595074793
+Burkina Faso,net_own,82.58723887205878,0.0
+Burkina Faso,net_used,63.11238329227245,0.0
+Burkina Faso,floor_grp,,0.016801916749475676
+Burkina Faso,wall_grp,,0.03147260506129197
+Burkina Faso,roof_grp,,0.03105924209216513
+Burkina Faso,age_months,33.1246785662886,0.0
+Burkina Faso,female,48.84840599643913,0.0
+Burkina Faso,month_sin,-0.33645497081272985,0.0
+Burkina Faso,month_cos,0.34737330304138886,0.0
+Burkina Faso,lat_band,,4.069065370132692
+Burkina Faso,sahel_nigeria,0.0,0.0
+Gambia,wealth,2.8788991299908577,0.0
+Gambia,urban,55.77133261767025,0.0
+Gambia,educ,0.8169684988086474,0.0
+Gambia,hhsize,14.352551772235003,0.0
+Gambia,water_improved,88.63900542855475,0.13997200559888023
+Gambia,toilet_improved,57.919144119796705,0.1799640071985603
+Gambia,net_own,86.79443694545093,0.0
+Gambia,net_used,48.650134949599085,0.0
+Gambia,floor_grp,,0.0
+Gambia,wall_grp,,0.0
+Gambia,roof_grp,,0.0
+Gambia,age_months,31.484098278001067,0.0
+Gambia,female,47.31782869842322,0.0
+Gambia,month_sin,0.771308691766207,0.0
+Gambia,month_cos,0.26912691630044955,0.0
+Gambia,lat_band,,47.524045238746226
+Gambia,sahel_nigeria,0.0,0.0
+Mali,wealth,2.9139153064669387,0.0
+Mali,urban,19.424706104149212,0.0
+Mali,educ,0.36899157423888007,0.0
+Mali,hhsize,11.493411618424085,0.0
+Mali,water_improved,70.20244501345377,0.09980625843949979
+Mali,toilet_improved,47.040583211556466,0.08219338930311748
+Mali,net_own,94.64069365379456,0.0
+Mali,net_used,76.58624628273833,0.0
+Mali,floor_grp,,0.0
+Mali,wall_grp,,0.0
+Mali,roof_grp,,0.0
+Mali,age_months,32.62108755023924,0.0
+Mali,female,48.90827650521945,0.0
+Mali,month_sin,-0.660809269889146,0.0
+Mali,month_cos,0.41662772495424244,0.0
+Mali,lat_band,,0.024177467849723168
+Mali,sahel_nigeria,0.0,0.0
+Mauritania,wealth,2.816620911620408,0.0
+Mauritania,urban,41.62807707270609,0.0
+Mauritania,educ,0.7916748860442511,0.0
+Mauritania,hhsize,8.955014336418275,0.0
+Mauritania,water_improved,74.90711657205816,0.04247486903582047
+Mauritania,toilet_improved,57.007759603902755,0.1132663174288546
+Mauritania,net_own,51.640273779982415,0.0
+Mauritania,net_used,20.635554013851383,0.0
+Mauritania,floor_grp,,0.0
+Mauritania,wall_grp,,0.0
+Mauritania,roof_grp,,0.0
+Mauritania,age_months,32.689478685659374,0.0
+Mauritania,female,48.68559785423009,0.0
+Mauritania,month_sin,0.6522229017549659,0.0
+Mauritania,month_cos,0.5120507969975102,0.0
+Mauritania,lat_band,,0.04136364089157178
+Mauritania,sahel_nigeria,0.0,0.0
+Niger,wealth,3.0382294578041074,0.0
+Niger,urban,19.543843212961125,0.0
+Niger,educ,0.37022175740739827,0.0
+Niger,hhsize,8.519194157482756,0.0
+Niger,water_improved,52.98921201023258,0.18268176835951772
+Niger,toilet_improved,25.280860064290707,0.03653635367190354
+Niger,net_own,97.27064587606596,0.0
+Niger,net_used,86.31322886289318,0.0
+Niger,floor_grp,,0.0
+Niger,wall_grp,,0.0
+Niger,roof_grp,,0.0
+Niger,age_months,32.20436409827626,0.0
+Niger,female,49.411494664876344,0.0
+Niger,month_sin,-0.9633433234268602,0.0
+Niger,month_cos,-0.10318653310218055,0.0
+Niger,lat_band,,0.0
+Niger,sahel_nigeria,0.0,0.0
+Nigeria,wealth,3.1080644284333117,0.0
+Nigeria,urban,40.022281951258904,0.0
+Nigeria,educ,1.1643995879639517,0.0
+Nigeria,hhsize,7.209006192360099,0.0
+Nigeria,water_improved,65.49956707788132,0.16897177545528505
+Nigeria,toilet_improved,56.21422480409648,0.09387320858626949
+Nigeria,net_own,67.32122974365556,0.0
+Nigeria,net_used,45.21256583415102,0.0
+Nigeria,floor_grp,,0.0
+Nigeria,wall_grp,,0.0
+Nigeria,roof_grp,,0.0
+Nigeria,age_months,32.8991802081322,0.0
+Nigeria,female,48.55600764443573,0.0
+Nigeria,month_sin,-0.680679279122918,0.0
+Nigeria,month_cos,0.5656955366230828,0.0
+Nigeria,lat_band,,0.7992212309758795
+Nigeria,sahel_nigeria,31.077968415310302,0.0
+Senegal,wealth,2.777976574747047,0.0
+Senegal,urban,36.48201740629976,0.0
+Senegal,educ,,0.006650262685376072
+Senegal,hhsize,14.218061474305921,0.0
+Senegal,water_improved,77.30064701905836,0.7581299461328722
+Senegal,toilet_improved,57.63204260630831,0.4123162864933165
+Senegal,net_own,86.88964893960419,0.0
+Senegal,net_used,56.250574789619044,0.0
+Senegal,floor_grp,,0.0
+Senegal,wall_grp,,0.0
+Senegal,roof_grp,,0.0
+Senegal,age_months,32.82182425560193,0.0
+Senegal,female,49.0933785107307,0.0
+Senegal,month_sin,-0.022643059437682238,0.0
+Senegal,month_cos,-0.03813518035142386,0.0
+Senegal,lat_band,,0.36212896589304183
+Senegal,sahel_nigeria,0.0,0.0

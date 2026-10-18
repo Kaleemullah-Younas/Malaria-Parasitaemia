@@ -31,6 +31,7 @@
 | Senegal | elasticnet | 30074 | 573 | 0.7755 | 0.132 | 0.6789 | -2.791 | 0 | {"l1_ratio": 0.5, "C": 1.0} | primary | 0.7332 | 0.8107 | 0.1104 | 0.1563 |
 | Senegal | lightgbm | 30074 | 573 | 0.665 | 0.0831 | 0.3177 | -3.685 | 0 | {"num_leaves": 31, "learning_rate": 0.05, "n_estimators": 300, "max_depth": 5} | primary | 0.6199 | 0.7086 | 0.06916 | 0.09818 |
 
-Calibration plots: `outputs/figures/figure1_calibration.png`.
-DCA (fever rule vs fever+model on all 6–59 months with RDT): `outputs/figures/figure2_dca.png`.
+Calibration: `outputs/figures/figure1_calibration_a.png` and `figure1_calibration_b.png`.
+DCA: `outputs/figures/figure2_dca_a.png` and `figure2_dca_b.png`.
+Standalone captions: `reports/figure_captions.md`.
 SHAP is a statement about model behavior, not malaria biology.
